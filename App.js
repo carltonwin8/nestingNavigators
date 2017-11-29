@@ -15,6 +15,13 @@ function Statusbar({backgroundColor, ...props}) {
   </View>)
 }
 
+class This extends React.Component { render() { return <Text>This</Text> } }
+class That extends React.Component { render() { return <Text>That</Text> } }
+
+const ThisNthat = StackNavigator({
+  This: { screen: This, },
+  That: { screen: That, },
+});
 
 class RecentChatsScreen extends React.Component {
   render() {
@@ -37,16 +44,6 @@ const MainScreenNavigator = TabNavigator({
   All: { screen: AllContactsScreen, },
 });
 
-class ChatScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    return { title: `${navigation.state.params.user}` };
-  };
-  render() {
-    return <View>
-      <Text>Chatting Away</Text>
-    </View>
-  }
-}
 
 class NavigatorWrappingScreen extends React.Component {
   render() {
@@ -60,6 +57,21 @@ class NavigatorWrappingScreen extends React.Component {
 
 NavigatorWrappingScreen.router = MainScreenNavigator.router;
 
+class ChatScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return { title: `${navigation.state.params.user}` };
+  };
+  render() {
+    return <View>
+      <Text>Chatting Away</Text>
+      <Button
+        onPress={() => this.props.navigation.navigate('This', { user: 'Lucy' })}
+        title="Go To This"
+      />
+    </View>
+  }
+}
+
 const SimpleApp2 = StackNavigator({
   Home: {
     screen: NavigatorWrappingScreen,
@@ -68,7 +80,9 @@ const SimpleApp2 = StackNavigator({
     },
   },
   Chat: { screen: ChatScreen },
+  This: { screen: This },
 });
+
 
 export default class App extends React.Component {
   render() {
