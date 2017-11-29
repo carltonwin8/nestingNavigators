@@ -48,16 +48,6 @@ class ChatScreen extends React.Component {
   }
 }
 
-const SimpleApp = StackNavigator({
-  Home: {
-    screen: MainScreenNavigator,
-    navigationOptions: {
-      title: 'My Chats',
-    },
-  },
-  Chat: { screen: ChatScreen },
-});
-
 class NavigatorWrappingScreen extends React.Component {
   render() {
     return (
@@ -67,6 +57,7 @@ class NavigatorWrappingScreen extends React.Component {
     );
   }
 }
+
 NavigatorWrappingScreen.router = MainScreenNavigator.router;
 
 const SimpleApp2 = StackNavigator({
